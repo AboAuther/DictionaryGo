@@ -21,7 +21,7 @@ func innerMain() int {
 			q := strings.Join(args, " ")
 			response, err := callYouDaoApi(fromLang, toLang, q)
 			if err != nil {
-				fmt.Println("")
+				return fmt.Errorf("call youdao api fail,%w", err)
 			}
 			PrintTranslation(&response, os.Stdout)
 			return
@@ -31,8 +31,9 @@ func innerMain() int {
 	err := command.Execute()
 	if err != nil {
 		log.Fatal(err)
+		return 1
 	}
-	return 1
+	return 0
 }
 
 func main() {
@@ -40,11 +41,12 @@ func main() {
 }
 
 func callYouDaoApi(fromLang, toLang, q string) (youdao.TextTranslationResp, error) {
-	config := InitConfig()
-	signToStr, salt, curTime := GetSign(q, config)
+	config, err := InitConfig()
+	if err != nil {
+		return youdao.TextTranslationResp{}, fmt.Errorf("can not open config file, %w", err)
+	}
 	client := youdao.NewClient((*youdao.Config)(config))
-	textTranslateReq := youdao.NewTextTranslateReq(fromLang, toLang, q, signToStr, salt, curTime)
-	response, err := client.TextTranslation(context.Background(), textTranslateReq)
+	response, err := client.TextTranslation(context.Background(), youdao.TextTranslationReq{FromLang: fromLang, ToLang: toLang, Q: q})
 	if err != nil {
 		return youdao.TextTranslationResp{}, fmt.Errorf("%w", err)
 	}
