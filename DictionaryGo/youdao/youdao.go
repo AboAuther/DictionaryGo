@@ -11,23 +11,8 @@ import (
 
 const (
 	signType = "v3"
-	APIURI   = "https://openapi.youdao.com/api"
+	ApiUrl   = "https://openapi.youdao.com/api"
 )
-
-//DictionaryRespJson 查询回应报文结构体
-type DictionaryRespJson struct {
-	ErrorCode    string                 `json:"errorCode"`
-	Query        string                 `json:"query"`
-	Translation  []string               `json:"translation"`
-	Basic        TransField             `json:"basic"`
-	Web          []TransWeb             `json:"web,omitempty"`
-	Language     string                 `json:"l"`
-	Dict         map[string]interface{} `json:"dict,omitempty"`
-	WebDict      map[string]interface{} `json:"webdict,omitempty"`
-	TSpeakUrl    string                 `json:"tSpeakUrl,omitempty"`
-	SpeakUrl     string                 `json:"speakUrl,omitempty"`
-	ReturnPhrase []string               `json:"returnPhrase,omitempty"`
-}
 
 //TransField 翻译结果结构体
 type TransField struct {
@@ -50,11 +35,6 @@ type Config struct {
 	AppKey    string `json:"AppKey"`
 	AppSecret string `json:"AppSecret"`
 }
-type youDaoClient struct {
-	youDaoApi string
-	config    *Config
-	data      url.Values
-}
 
 type Context struct {
 	fromLang string
@@ -69,9 +49,23 @@ type TextTranslationReq struct {
 	toLang                   string
 	q                        string
 	signToStr, salt, curTime string
-	youDaoApi                string
 }
 type TextTranslationResp struct {
+	ErrorCode    string                 `json:"errorCode"`
+	Query        string                 `json:"query"`
+	Translation  []string               `json:"translation"`
+	Basic        TransField             `json:"basic"`
+	Web          []TransWeb             `json:"web,omitempty"`
+	Language     string                 `json:"l"`
+	Dict         map[string]interface{} `json:"dict,omitempty"`
+	WebDict      map[string]interface{} `json:"webdict,omitempty"`
+	TSpeakUrl    string                 `json:"tSpeakUrl,omitempty"`
+	SpeakUrl     string                 `json:"speakUrl,omitempty"`
+	ReturnPhrase []string               `json:"returnPhrase,omitempty"`
+}
+
+//DictionaryRespJson 查询回应报文结构体
+type DictionaryRespJson struct {
 	ErrorCode    string                 `json:"errorCode"`
 	Query        string                 `json:"query"`
 	Translation  []string               `json:"translation"`
@@ -98,7 +92,7 @@ func (client *Client) TextTranslation(ctx context.Context, req TextTranslationRe
 	data["signType"] = []string{signType}
 	data["curtime"] = []string{req.curTime}
 
-	respon, err := http.PostForm(req.youDaoApi, data)
+	respon, err := http.PostForm(ApiUrl, data)
 	if err != nil {
 		return TextTranslationResp{}, fmt.Errorf("%w", err)
 	}
@@ -116,8 +110,17 @@ func (client *Client) TextTranslation(ctx context.Context, req TextTranslationRe
 }
 
 //newClient 初始化
-func newClient(config *Config) Client {
+func NewClient(config *Config) Client {
 	var client Client
 	client.config = config
 	return client
+}
+func NewTextTranslateReq(fromLang, toLang, q, signToStr, salt, curTime string) (ttr TextTranslationReq) {
+	ttr.toLang = fromLang
+	ttr.fromLang = fromLang
+	ttr.q = q
+	ttr.salt = salt
+	ttr.signToStr = signToStr
+	ttr.curTime = curTime
+	return
 }

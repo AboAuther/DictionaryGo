@@ -1,12 +1,13 @@
 package main
 
 import (
+	"DictionaryGo/youdao"
 	"fmt"
 	"io"
 )
 
 //PrintTranslation 将报文内容结构化显示
-func PrintTranslation(jsonContent *DictionaryRespJson, writer io.Writer) {
+func PrintTranslation(jsonContent *youdao.TextTranslationResp, writer io.Writer) {
 	if jsonContent.ErrorCode != "0" {
 		switch jsonContent.ErrorCode {
 		case "102":
