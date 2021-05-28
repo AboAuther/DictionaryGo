@@ -13,6 +13,12 @@ import (
 	"time"
 )
 
+//Config 配置文件
+type Config struct {
+	AppKey    string `json:"AppKey"`
+	AppSecret string `json:"AppSecret"`
+}
+
 //InitConfig 加载配置文件
 func InitConfig() *Config {
 	var config Config
