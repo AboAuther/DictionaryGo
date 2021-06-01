@@ -13,7 +13,7 @@ import (
 //initConfig 加载配置文件
 func initConfig() (youdao.Config, error) {
 	var config youdao.Config
-	curFilePath := GetFilePath()
+	curFilePath := getFilePath()
 	content, err := ioutil.ReadFile(curFilePath + "/config.json")
 	if err != nil {
 		return config, fmt.Errorf("%w", err)
@@ -25,8 +25,8 @@ func initConfig() (youdao.Config, error) {
 	return config, err
 }
 
-//GetFilePath 获取当前执行二进制文件绝对目录
-func GetFilePath() string {
+//getFilePath 获取当前执行二进制文件绝对目录
+func getFilePath() string {
 	path, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
 		fmt.Println("get file's path failed")

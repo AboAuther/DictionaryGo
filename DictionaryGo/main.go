@@ -32,7 +32,7 @@ func main() {
 			if err != nil {
 				return fmt.Errorf("call youdao api failed,%w", err)
 			}
-			PrintTranslation(&response, os.Stdout)
+			printTranslation(&response, os.Stdout)
 			return nil
 		}}
 	command.Flags().StringVarP(&fromLang, "from", "f", "en", "translate from this language")

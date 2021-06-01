@@ -7,20 +7,20 @@ import (
 	"time"
 )
 
-func GetSign(q string, config *Config) (signToStr, salt, curTime string) {
+func getSign(q string, config *Config) (signToStr, salt, curTime string) {
 	uuidRandNum := uuid.NewV4()
 	salt = uuidRandNum.String()
-	input := TruncateString(q)
+	input := truncateString(q)
 	stamp := time.Now().Unix()
 	curTime = strconv.FormatInt(stamp, 10)
 	instr := config.AppKey + input + salt + strconv.FormatInt(stamp, 10) + config.AppSecret
 	sign := sha256.Sum256([]byte(instr))
-	signToStr = HexNumToString(sign[:])
+	signToStr = hexNumToString(sign[:])
 	return
 }
 
-//TruncateString 截断查询字符串(有道官方要求字符串长度大于20则取前10+字符串长度+后10，否则返回q)
-func TruncateString(q string) string {
+//truncateString 截断查询字符串(有道官方要求字符串长度大于20则取前10+字符串长度+后10，否则返回q)
+func truncateString(q string) string {
 	res := make([]rune, 10)
 	temp := []rune(q)
 	qLen := len(temp)
@@ -36,7 +36,7 @@ func TruncateString(q string) string {
 }
 
 //HexNumToString 将十六进制Sign转换为字符串
-func HexNumToString(hexnum []byte) (res string) {
+func hexNumToString(hexnum []byte) (res string) {
 	for _, v := range hexnum {
 		str := strconv.FormatUint(uint64(v), 16)
 		if len(str) == 1 {
