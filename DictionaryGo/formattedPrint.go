@@ -1,9 +1,10 @@
 package main
 
 import (
-	"DictionaryGo/youdao"
 	"fmt"
 	"io"
+
+	"github.com/AboAuther/DictionaryGo/youdao"
 )
 
 //PrintTranslation 将报文内容结构化显示

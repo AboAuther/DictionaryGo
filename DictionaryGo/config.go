@@ -3,34 +3,29 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/AboAuther/DictionaryGo/youdao"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
 )
 
-//Config 配置文件
-type Config struct {
-	AppKey    string `json:"AppKey"`
-	AppSecret string `json:"AppSecret"`
-}
-
-//InitConfig 加载配置文件
-func InitConfig() (*Config, error) {
-	var config Config
+//initConfig 加载配置文件
+func initConfig() (youdao.Config, error) {
+	var config youdao.Config
 	curFilePath := GetFilePath()
 	content, err := ioutil.ReadFile(curFilePath + "/config.json")
 	if err != nil {
-		return nil, fmt.Errorf("%w", err)
+		return config, fmt.Errorf("%w", err)
 	}
 	err = json.Unmarshal(content, &config)
 	if err != nil {
-		return nil, fmt.Errorf("%w", err)
+		return config, fmt.Errorf("%w", err)
 	}
-	return &config, err
+	return config, err
 }
 
-//GetFilePath 获取当前文件地址
+//GetFilePath 获取当前执行二进制文件绝对目录
 func GetFilePath() string {
 	path, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
