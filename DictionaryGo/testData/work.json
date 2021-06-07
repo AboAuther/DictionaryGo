@@ -1,0 +1,96 @@
+{
+  "returnPhrase":[
+    "work"
+  ],
+  "query":"work",
+  "errorCode":"0",
+  "l":"en2zh-CHS",
+  "tSpeakUrl":"https://openapi.youdao.com/ttsapi?q=%E5%B7%A5%E4%BD%9C&langType=zh-CHS&sign=80561B8CDD8F8DED9630729F016D3E9A&salt=1623051382520&voice=4&format=mp3&appKey=7f13c2519e14c13c&ttsVoiceStrict=false",
+  "web":[
+    {"value": [
+      "作品",
+      "起作用",
+      "工件",
+      "运转"
+    ],
+      "key":"Work"
+    },
+    {"value":[
+      "工作许可",
+      "工作证",
+      "工作准证"
+    ],
+      "key":"work permit"
+    },
+    {"value":[
+      "在工作",
+      "忙于",
+      "上班",
+      "在上班"
+    ],"key":"at work"
+    }
+  ],
+  "requestId":"806535ac-c073-48a1-9687-9ac262319d0e",
+  "translation":[
+    "工作"
+  ],
+  "dict":{
+    "url": "yddict://m.youdao.com/dict?le=eng&q=work"
+  },
+  "webdict":{
+    "url":"http://mobile.youdao.com/dict?le=eng&q=work"
+  },
+  "basic":{
+    "exam_type":[
+      "初中",
+      "高中",
+      "CET4",
+      "CET6",
+      "考研",
+      "SAT"
+    ],
+    "us-phonetic":"wɜːrk",
+    "phonetic":"wɜːk",
+    "uk-phonetic":"wɜːk",
+    "wfs":[
+      {
+        "wf":{
+          "name":"复数",
+          "value":"works"
+        }
+      },
+      {
+        "wf":{
+          "name":"第三人称单数",
+          "value":"works"
+        }
+      },
+      {
+        "wf":{
+          "name":"现在分词",
+          "value":"working"
+        }
+      },
+      {
+        "wf":{
+          "name":"过去式",
+          "value":"worked或wrought"
+        }
+      },
+      {
+        "wf":{
+          "name":"过去分词",
+          "value":"worked或wrought"
+        }
+      }
+
+    ],
+    "uk-speech":"https://openapi.youdao.com/ttsapi?q=work&langType=en&sign=03383EA7AA8183B44F86A1F138D0118F&salt=1623051382520&voice=5&format=mp3&appKey=7f13c2519e14c13c&ttsVoiceStrict=false",
+    "explains":[
+      "n. 工作；功；产品；操作；职业；行为；事业；工厂；著作；文学、音乐或艺术作品",
+      "vt. 使工作；操作；经营；使缓慢前进","vi. 工作；运作；起作用",
+      "n. （Work）（英、埃塞、丹、冰、美）沃克（人名）"
+    ],
+    "us-speech":"https://openapi.youdao.com/ttsapi?q=work&langType=en&sign=03383EA7AA8183B44F86A1F138D0118F&salt=1623051382520&voice=6&format=mp3&appKey=7f13c2519e14c13c&ttsVoiceStrict=false"},
+  "isWord":true,
+  "speakUrl":"https://openapi.youdao.com/ttsapi?q=work&langType=en&sign=03383EA7AA8183B44F86A1F138D0118F&salt=1623051382520&voice=4&format=mp3&appKey=7f13c2519e14c13c&ttsVoiceStrict=false"}

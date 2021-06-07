@@ -35,7 +35,7 @@ func truncateString(q string) string {
 	}
 }
 
-//HexNumToString 将十六进制Sign转换为字符串
+//hexNumToString 将十六进制Sign转换为字符串
 func hexNumToString(hexnum []byte) (res string) {
 	for _, v := range hexnum {
 		str := strconv.FormatUint(uint64(v), 16)
