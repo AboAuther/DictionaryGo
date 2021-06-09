@@ -78,7 +78,7 @@ func (client *Client) TextTranslation(ctx context.Context, req TextTranslationRe
 		return TextTranslationResp{}, fmt.Errorf("http request fail:%w", err)
 	}
 	httpReq.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	httpResp, err := client.config.Client.PostForm(apiUrl, data)
+	httpResp, err := client.config.Client.Do(httpReq)
 	defer httpResp.Body.Close()
 	body, err := ioutil.ReadAll(httpResp.Body)
 	if err != nil {
