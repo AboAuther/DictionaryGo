@@ -1,7 +1,9 @@
 #DictionaryGo
 
 ###项目利用第三方API服务实现了一个利用命令行进行词句文本翻译的功能
+
 ##API使用方式
+
 api的使用方式需要参考有道智云的官方文档
 https://ai.youdao.com
 
