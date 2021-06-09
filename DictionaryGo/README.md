@@ -1,13 +1,13 @@
-#DictionaryGo
+# DictionaryGo
 
-###项目利用第三方API服务实现了一个利用命令行进行词句文本翻译的功能
+项目利用第三方API服务实现了一个利用命令行进行词句文本翻译的功能
 
-##API使用方式
+## API使用方式
 
-api的使用方式需要参考有道智云的官方文档
+### api的使用方式需要参考有道智云的官方文档
 https://ai.youdao.com
 
-##有道智云官方文档
+## 有道智云官方文档
 
 从文档上我们获取到以下信息：
 
@@ -49,17 +49,17 @@ cobra是一个构建命令行工具的库，我们先大致描述一下我们需
 所以大概就是这个样子：
 
 ```bash
-$ ./DictionaryGo q --from en --to zh-CSH
+$ ./DictionaryGo word --from en --to zh-CSH
 ```
 
 或者简写成
 
 ```bash
-$ ./DictionaryGo q -f en -t zh-CSH
+$ ./DictionaryGo word -f en -t zh-CSH
 ```
 默认翻译(英->中/中->英)
 ```bash
-$ ./DictionaryGo q 
+$ ./DictionaryGo word 
 ```
 
 ## 加载config.json配置
@@ -92,7 +92,7 @@ if err != nil {
     return TextTranslationResp{}, fmt.Errorf("http request fail:%w", err)
 }
 httpReq.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-httpResp, err := client.config.Client.PostForm(apiUrl, data)
+httpResp, err := client.config.Client.Do(httpReq)
 defer httpResp.Body.Close()
 ```
 
@@ -102,6 +102,13 @@ defer httpResp.Body.Close()
 body, err := ioutil.ReadAll(httpResp.Body)
 if err != nil {
     return TextTranslationResp{}, fmt.Errorf("get json fail,%w", err)
+}
+if httpResp.StatusCode != http.StatusOK {
+    return TextTranslationResp{}, fmt.Errorf("bad result:%v", string(body))
+}
+err = json.Unmarshal(body, &resp)
+if err != nil {
+    return TextTranslationResp{}, fmt.Errorf("unmarshal json fail,%w", err)
 }
 ```
 
@@ -143,25 +150,6 @@ b. 英文查词的basic字段中又包含以下字段。
 
 定义对应的字段的结构之后调用json解析并格式化打印翻译结果
 
-###测试效果
-```bash
----- work ----
-英式发音: [  wɜːk  ]
-美式发音: [  wɜːrk  ]
-[ 翻译结果 ]
-         1 . 工作
-[ 网络释义 ]
-         1 . n. 工作；功；产品；操作；职业；行为；事业；工厂；著作；文学、音乐或艺术作品
-         2 . vt. 使工作；操作；经营；使缓慢前进
-         3 . vi. 工作；运作；起作用
-         4 . n. （Work）（英、埃塞、丹、冰、美）沃克（人名）
-[ 延伸释义 ]
-         1 . Work
-        翻译:作品,起作用,工件,运转,
-         2 . work permit
-        翻译:工作许可,工作证,工作准证,
-         3 . at work
-        翻译:在工作,忙于,上班,在上班,
-[ 查看详情:]
-         http://mobile.youdao.com/dict?le=eng&q=work
-```
+### 测试效果
+____
+![img.png](testData/img.png)
